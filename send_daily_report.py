@@ -6,7 +6,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 options = {
-    'api_key': '$APK_KEY',
+    'api_key': '$API_KEY',
     'app_key': '$APP_KEY'
 }
 
