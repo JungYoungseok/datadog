@@ -4,3 +4,6 @@
 - gmail account requires less secure app access to run this example
 - $API_KEY, $APP_KEY from your datadog account
 - sender_email, password from your GMail account
+- Email Sample
+
+<img src="/image/email_screenshot.png" width="400">
