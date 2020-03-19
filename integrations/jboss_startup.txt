@@ -1,0 +1,2 @@
+JAVA_OPTS="$JAVA_OPTS -javaagent:/usr/local/src/wildfly-9.0.1.Final/dd-java-agent.jar -Ddd.trace.analytics.enabled=true -Ddd.service.name=jacky-jboss"
+
