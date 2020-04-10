@@ -1,0 +1,22 @@
+init_config:
+  profiles:
+    f5-big-ip:
+      definition_file: f5-big-ip.yaml
+    router:
+      definition_file: generic-router.yaml
+    cisco-3850:
+      definition_file: cisco-3850.yaml
+    meraki-cloud-controller:
+      definition_file: meraki-cloud-controller.yaml
+    idrac:
+      definition_file: idrac.yaml
+    cisco-nexus:
+      definition_file: cisco-nexus.yaml
+
+instances:
+  - ip_address: 172.31.24.105
+    profile: f5-big-ip
+    community_string: public
+    tags:
+      - purpose:webinar-demo
+      - location:1-4-rack
