@@ -47,6 +47,10 @@ int main(int argc, char* argv[]) {
                 span_c->Finish();
         
                 span_a->Finish(); 
+                if( current_balance > 1000000 ) {
+                        cout << "Exiting the loop current balance is "<< current_balance << "\n";
+                        break;
+                }
                 usleep(100000);
         }       
         tracer->Close();
