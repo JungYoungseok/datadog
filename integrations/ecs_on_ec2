@@ -1,0 +1,197 @@
+{
+  "ipcMode": null,
+  "executionRoleArn": null,
+  "containerDefinitions": [
+    {
+      "dnsSearchDomains": null,
+      "environmentFiles": null,
+      "logConfiguration": null,
+      "entryPoint": null,
+      "portMappings": [
+        {
+          "hostPort": 8126,
+          "protocol": "tcp",
+          "containerPort": 8126
+        }
+      ],
+      "command": null,
+      "linuxParameters": {
+        "capabilities": {
+          "add": [
+            "SYS_ADMIN",
+            "SYS_RESOURCE",
+            "SYS_PTRACE",
+            "NET_ADMIN"
+          ],
+          "drop": null
+        },
+        "sharedMemorySize": null,
+        "tmpfs": null,
+        "devices": null,
+        "maxSwap": null,
+        "swappiness": null,
+        "initProcessEnabled": null
+      },
+      "cpu": 10,
+      "environment": [
+        {
+          "name": "DD_API_KEY",
+          "value": "Here!"
+        },
+        {
+          "name": "DD_ECS_COLLECT_RESOURCE_TAGS_EC2",
+          "value": "true"
+        },
+        {
+          "name": "DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL",
+          "value": "true"
+        },
+        {
+          "name": "DD_LOGS_ENABLED",
+          "value": "true"
+        },
+        {
+          "name": "DD_PROCESS_AGENT_ENABLED",
+          "value": "true"
+        },
+        {
+          "name": "DD_SITE",
+          "value": "datadoghq.com"
+        },
+        {
+          "name": "DD_SYSTEM_PROBE_ENABLED",
+          "value": "true"
+        }
+      ],
+      "resourceRequirements": null,
+      "ulimits": null,
+      "dnsServers": null,
+      "mountPoints": [
+        {
+          "readOnly": true,
+          "containerPath": "/var/run/docker.sock",
+          "sourceVolume": "docker_sock"
+        },
+        {
+          "readOnly": true,
+          "containerPath": "/host/sys/fs/cgroup",
+          "sourceVolume": "cgroup"
+        },
+        {
+          "readOnly": true,
+          "containerPath": "/host/proc",
+          "sourceVolume": "proc"
+        },
+        {
+          "readOnly": null,
+          "containerPath": "/sys/kernel/debug",
+          "sourceVolume": "debug"
+        },
+        {
+          "readOnly": true,
+          "containerPath": "/etc/passwd",
+          "sourceVolume": "passwd"
+        },
+        {
+          "readOnly": false,
+          "containerPath": "/opt/datadog-agent/run",
+          "sourceVolume": "pointdir"
+        }
+      ],
+      "workingDirectory": null,
+      "secrets": null,
+      "dockerSecurityOptions": null,
+      "memory": 256,
+      "memoryReservation": null,
+      "volumesFrom": [],
+      "stopTimeout": null,
+      "image": "datadog/agent:latest-jmx",
+      "startTimeout": null,
+      "firelensConfiguration": null,
+      "dependsOn": null,
+      "disableNetworking": null,
+      "interactive": null,
+      "healthCheck": null,
+      "essential": true,
+      "links": null,
+      "hostname": null,
+      "extraHosts": null,
+      "pseudoTerminal": null,
+      "user": null,
+      "readonlyRootFilesystem": null,
+      "dockerLabels": null,
+      "systemControls": null,
+      "privileged": null,
+      "name": "datadog-agent"
+    }
+  ],
+  "placementConstraints": [],
+  "memory": null,
+  "taskRoleArn": null,
+  "compatibilities": [
+    "EC2"
+  ],
+  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:172597598159:task-definition/datadog-agent-task:7",
+  "family": "datadog-agent-task",
+  "requiresAttributes": [],
+  "pidMode": null,
+  "requiresCompatibilities": [
+    "EC2"
+  ],
+  "networkMode": null,
+  "cpu": null,
+  "revision": 7,
+  "status": "ACTIVE",
+  "inferenceAccelerators": null,
+  "proxyConfiguration": null,
+  "volumes": [
+    {
+      "efsVolumeConfiguration": null,
+      "name": "docker_sock",
+      "host": {
+        "sourcePath": "/var/run/docker.sock"
+      },
+      "dockerVolumeConfiguration": null
+    },
+    {
+      "efsVolumeConfiguration": null,
+      "name": "proc",
+      "host": {
+        "sourcePath": "/proc/"
+      },
+      "dockerVolumeConfiguration": null
+    },
+    {
+      "efsVolumeConfiguration": null,
+      "name": "cgroup",
+      "host": {
+        "sourcePath": "/sys/fs/cgroup/"
+      },
+      "dockerVolumeConfiguration": null
+    },
+    {
+      "efsVolumeConfiguration": null,
+      "name": "passwd",
+      "host": {
+        "sourcePath": "/etc/passwd"
+      },
+      "dockerVolumeConfiguration": null
+    },
+    {
+      "efsVolumeConfiguration": null,
+      "name": "debug",
+      "host": {
+        "sourcePath": "/sys/kernel/debug"
+      },
+      "dockerVolumeConfiguration": null
+    },
+    {
+      "efsVolumeConfiguration": null,
+      "name": "pointdir",
+      "host": {
+        "sourcePath": "/opt/datadog-agent/run"
+      },
+      "dockerVolumeConfiguration": null
+    }
+  ]
+}
