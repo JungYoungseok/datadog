@@ -14,7 +14,7 @@ targetSystem: "linux"
 datadog:
   # datadog.apiKey -- Your Datadog API key
   # ref: https://app.datadoghq.com/account/settings#agent/kubernetes
-  apiKey: API_KEY_Without_double_quotation
+  apiKey: #API_KEY_Without_double_quotation
 
   # datadog.apiKeyExistingSecret -- Use existing Secret which stores API key instead of creating a new one
   ## If set, this parameter takes precedence over "apiKey".
@@ -23,7 +23,7 @@ datadog:
   # datadog.appKey -- Datadog APP key required to use metricsProvider
   ## If you are using clusterAgent.metricsProvider.enabled = true, you must set
   ## a Datadog application key for read access to your metrics.
-  appKey: APP_KEY_Without_double_quotation
+  appKey: #APP_KEY_Without_double_quotation 
 
   # datadog.appKeyExistingSecret -- Use existing Secret which stores APP key instead of creating a new one
   ## If set, this parameter takes precedence over "appKey".
@@ -49,7 +49,7 @@ datadog:
   ## * Overall length should not be higher than 80 characters.
   ## Compared to the rules of GKE, dots are allowed whereas they are not allowed on GKE:
   ## https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1beta1/projects.locations.clusters#Cluster.FIELDS.name
-  clusterName: swlee
+  clusterName: sample-k8s-cluster
 
   # datadog.site -- The site of the Datadog intake to send Agent data to
   ## Set to 'datadoghq.eu' to send data to the EU site.
@@ -97,7 +97,7 @@ datadog:
   # datadog.tags -- List of static tags to attach to every metric, event and service check collected by this Agent.
   ## Learn more about tagging: https://docs.datadoghq.com/tagging/
   tags: []
-  #   - "<KEY_1>:<VALUE_1>"
+    - "env:stg"
   #   - "<KEY_2>:<VALUE_2>"
 
   ## dogstatsd configuration
@@ -295,11 +295,11 @@ datadog:
     ## If you notice that the cluster-agent uses too much CPU in larger clusters
     ## turning this option off will improve the situation.
     container_scrubbing:
-      enabled: true
+      enabled: false
 
   networkMonitoring:
     # datadog.networkMonitoring.enabled -- Enable network performance monitoring
-    enabled: false
+    enabled: true
 
   ## Enable security agent and provide custom configs
   securityAgent:
@@ -446,13 +446,13 @@ clusterAgent:
   #         pass: '<YOUR_CHOSEN_PASSWORD>'
 
   # clusterAgent.resources -- Datadog cluster-agent resource requests and limits.
-  resources: {}
-  # requests:
-  #   cpu: 200m
-  #   memory: 256Mi
-  # limits:
-  #   cpu: 200m
-  #   memory: 256Mi
+  resources:
+    requests:
+      cpu: 0.25
+      memory: 500Mi
+    limits:
+      cpu: 0.5
+      memory: 750Mi
 
   # clusterAgent.priorityClassName -- Name of the priorityClass to apply to the Cluster Agent
   priorityClassName:  # system-cluster-critical
@@ -646,6 +646,8 @@ agents:
 
   containers:
     agent:
+      annotations:
+        sidecar.istio.io/inject: "false"
       # agents.containers.agent.env -- Additional environment variables for the agent container
       env: []
 
@@ -654,14 +656,14 @@ agents:
       logLevel:  # INFO
 
       # agents.containers.agent.resources -- Resource requests and limits for the agent container.
-      resources: {}
-      #  requests:
-      #    cpu: 200m
-      #    memory: 256Mi
-      #  limits:
-      #    cpu: 200m
-      #    memory: 256Mi
-
+      resources:
+        requests:
+          cpu: 0.25
+          memory: 500Mi
+        limits:
+          cpu: 0.5
+          memory: 750Mi
+ 
       # agents.containers.agent.healthPort -- Port number to use in the node agent for the healthz endpoint
       healthPort: 5555
 
@@ -695,13 +697,13 @@ agents:
       logLevel:  # INFO
 
       # agents.containers.processAgent.resources -- Resource requests and limits for the process-agent container
-      resources: {}
-      #  requests:
-      #    cpu: 100m
-      #    memory: 200Mi
-      #  limits:
-      #    cpu: 100m
-      #    memory: 200Mi
+      resources:
+        requests:
+          cpu: 0.25
+          memory: 200Mi
+        limits:
+          cpu: 1
+          memory: 500Mi
 
       # agents.containers.processAgent.securityContext -- Allows you to overwrite the default container SecurityContext for the process-agent container.
       securityContext: {}
@@ -714,13 +716,13 @@ agents:
       logLevel:  # INFO
 
       # agents.containers.traceAgent.resources -- Resource requests and limits for the trace-agent container
-      resources: {}
-      #  requests:
-      #    cpu: 100m
-      #    memory: 200Mi
-      #  limits:
-      #    cpu: 100m
-      #    memory: 200Mi
+      resources:
+        requests:
+          cpu: 0.2
+          memory: 500Mi
+        limits:
+          cpu: 0.5
+          memory: 750Mi
 
       # agents.containers.traceAgent.livenessProbe -- Override default agent liveness probe settings
       # @default -- Every 15s
@@ -741,13 +743,15 @@ agents:
       logLevel:  # INFO
 
       # agents.containers.systemProbe.resources -- Resource requests and limits for the system-probe container
-      resources: {}
-      #  requests:
-      #    cpu: 100m
-      #    memory: 200Mi
-      #  limits:
-      #    cpu: 100m
-      #    memory: 200Mi
+      resources:
+      resources:
+        requests:
+          cpu: 0.25
+          memory: 300Mi
+        limits:
+          cpu: 0.5
+          memory: 750Mi
+
     securityAgent:
       # agents.containers.securityAgent.env -- Additional environment variables for the security-agent container
       env:
@@ -758,12 +762,6 @@ agents:
 
       # agents.containers.securityAgent.resources -- Resource requests and limits for the security-agent container
       resources: {}
-      #  requests:
-      #    cpu: 100m
-      #    memory: 200Mi
-      #  limits:
-      #    cpu: 100m
-      #    memory: 200Mi
 
     initContainers:
       # agents.containers.initContainers.resources -- Resource requests and limits for the init containers
@@ -919,13 +917,14 @@ clusterChecksRunner:
   replicas: 2
 
   # clusterChecksRunner.resources -- Datadog clusterchecks-agent resource requests and limits.
-  resources: {}
-  # requests:
-  #   cpu: 200m
-  #   memory: 500Mi
-  # limits:
-  #   cpu: 200m
-  #   memory: 500Mi
+  resources:
+    resources:
+      requests:
+        cpu: 0.2
+        memory: 200Mi
+      limits:
+        cpu: 0.5
+        memory: 500Mi
 
   # clusterChecksRunner.affinity -- Allow the ClusterChecks Deployment to schedule using affinity rules.
   ## By default, ClusterChecks Deployment Pods are forced to run on different Nodes.
@@ -1045,13 +1044,13 @@ kube-state-metrics:
     name:
 
   # kube-state-metrics.resources -- Resource requests and limits for the kube-state-metrics container.
-  resources: {}
-  #   requests:
-  #     cpu: 200m
-  #     memory: 256Mi
-  #   limits:
-  #     cpu: 200m
-  #     memory: 256Mi
+  resources:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
 
   # kube-state-metrics.nodeSelector -- Node selector for KSM. KSM only supports Linux.
   nodeSelector:
