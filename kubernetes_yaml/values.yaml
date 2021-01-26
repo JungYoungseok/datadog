@@ -96,7 +96,7 @@ datadog:
 
   # datadog.tags -- List of static tags to attach to every metric, event and service check collected by this Agent.
   ## Learn more about tagging: https://docs.datadoghq.com/tagging/
-  tags: []
+  tags:
     - "env:stg"
   #   - "<KEY_2>:<VALUE_2>"
 
@@ -449,10 +449,10 @@ clusterAgent:
   resources:
     requests:
       cpu: 0.25
-      memory: 500Mi
+      memory: 250Mi
     limits:
       cpu: 0.5
-      memory: 750Mi
+      memory: 500Mi
 
   # clusterAgent.priorityClassName -- Name of the priorityClass to apply to the Cluster Agent
   priorityClassName:  # system-cluster-critical
@@ -659,9 +659,9 @@ agents:
       resources:
         requests:
           cpu: 0.25
-          memory: 500Mi
+          memory: 250Mi
         limits:
-          cpu: 0.5
+          cpu: 0.75
           memory: 750Mi
  
       # agents.containers.agent.healthPort -- Port number to use in the node agent for the healthz endpoint
@@ -702,7 +702,7 @@ agents:
           cpu: 0.25
           memory: 200Mi
         limits:
-          cpu: 1
+          cpu: 0.75
           memory: 500Mi
 
       # agents.containers.processAgent.securityContext -- Allows you to overwrite the default container SecurityContext for the process-agent container.
@@ -718,11 +718,11 @@ agents:
       # agents.containers.traceAgent.resources -- Resource requests and limits for the trace-agent container
       resources:
         requests:
-          cpu: 0.2
-          memory: 500Mi
+          cpu: 0.25
+          memory: 250Mi
         limits:
-          cpu: 0.5
-          memory: 750Mi
+          cpu: 0.75
+          memory: 500Mi
 
       # agents.containers.traceAgent.livenessProbe -- Override default agent liveness probe settings
       # @default -- Every 15s
@@ -747,10 +747,10 @@ agents:
       resources:
         requests:
           cpu: 0.25
-          memory: 300Mi
+          memory: 250Mi
         limits:
           cpu: 0.5
-          memory: 750Mi
+          memory: 500Mi
 
     securityAgent:
       # agents.containers.securityAgent.env -- Additional environment variables for the security-agent container
