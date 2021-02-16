@@ -211,6 +211,8 @@ datadog:
   env: 
    - name: DD_KUBELET_TLS_VERIFY 
      value: "false"
+   - name: DD_APM_IGNORE_RESOURCES
+     value: GET /health
   # datadog.confd -- Provide additional check configurations (static and Autodiscovery)
   ## Each key becomes a file in /conf.d
   ## ref: https://github.com/DataDog/datadog-agent/tree/master/Dockerfiles/agent#optional-volumes
