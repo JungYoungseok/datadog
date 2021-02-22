@@ -450,11 +450,11 @@ clusterAgent:
   # clusterAgent.resources -- Datadog cluster-agent resource requests and limits.
   resources:
     requests:
-      cpu: 0.25
-      memory: 250Mi
+      cpu: 0.1
+      memory: 200Mi
     limits:
-      cpu: 0.5
-      memory: 500Mi
+      cpu: 0.25
+      memory: 400Mi
 
   # clusterAgent.priorityClassName -- Name of the priorityClass to apply to the Cluster Agent
   priorityClassName:  # system-cluster-critical
@@ -660,10 +660,10 @@ agents:
       # agents.containers.agent.resources -- Resource requests and limits for the agent container.
       resources:
         requests:
-          cpu: 0.25
+          cpu: 0.2
           memory: 250Mi
         limits:
-          cpu: 0.75
+          cpu: 0.5
           memory: 750Mi
  
       # agents.containers.agent.healthPort -- Port number to use in the node agent for the healthz endpoint
@@ -701,11 +701,11 @@ agents:
       # agents.containers.processAgent.resources -- Resource requests and limits for the process-agent container
       resources:
         requests:
-          cpu: 0.25
+          cpu: 0.1
           memory: 200Mi
         limits:
-          cpu: 0.75
-          memory: 500Mi
+          cpu: 0.5
+          memory: 400Mi
 
       # agents.containers.processAgent.securityContext -- Allows you to overwrite the default container SecurityContext for the process-agent container.
       securityContext: {}
@@ -720,11 +720,11 @@ agents:
       # agents.containers.traceAgent.resources -- Resource requests and limits for the trace-agent container
       resources:
         requests:
-          cpu: 0.25
+          cpu: 0.1
           memory: 250Mi
         limits:
-          cpu: 0.75
-          memory: 500Mi
+          cpu: 0.5
+          memory: 400Mi
 
       # agents.containers.traceAgent.livenessProbe -- Override default agent liveness probe settings
       # @default -- Every 15s
@@ -748,11 +748,11 @@ agents:
       resources:
       resources:
         requests:
-          cpu: 0.25
-          memory: 250Mi
+          cpu: 0.1
+          memory: 200Mi
         limits:
-          cpu: 0.5
-          memory: 500Mi
+          cpu: 0.3
+          memory: 400Mi
 
     securityAgent:
       # agents.containers.securityAgent.env -- Additional environment variables for the security-agent container
@@ -1048,7 +1048,7 @@ kube-state-metrics:
   # kube-state-metrics.resources -- Resource requests and limits for the kube-state-metrics container.
   resources:
     requests:
-      cpu: 200m
+      cpu: 100m
       memory: 256Mi
     limits:
       cpu: 200m
