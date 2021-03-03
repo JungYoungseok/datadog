@@ -1,0 +1,84 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: datadog-agent
+rules:
+  - apiGroups:
+    - ""
+    resources:
+      - nodes/metrics
+      - nodes/spec
+      - nodes/stats
+      - nodes/proxy
+      - nodes/pods
+      - nodes/healthz
+    verbs:
+      - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: datadog-agent
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: datadog-agent
+subjects:
+  - kind: ServiceAccount
+    name: datadog-agent
+    namespace: default
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: datadog-agent
+  namespace: default
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: redis
+ namespace: default
+spec:
+ selector:
+   matchLabels:
+     app: redis
+ replicas: 1
+ template:
+   metadata:
+     labels:
+       app: redis
+     name: redis
+     annotations:
+       ad.datadoghq.com/redis.check_names: '["redisdb"]'
+       ad.datadoghq.com/redis.init_configs: '[{}]'
+       ad.datadoghq.com/redis.instances: |
+         [
+           {
+             "host": "%%host%%",
+             "port": "6379"
+           }
+         ]
+   spec:
+     shareProcessNamespace: true
+     serviceAccountName: datadog-agent
+     containers:
+     - name: redis
+       image: redis:latest
+       args:
+         - "redis-server"
+       ports:
+       - containerPort: 6379
+     - image: datadog/agent
+       name: datadog-agent
+       env:
+       - name: DD_API_KEY
+         value: "$YOUR_API_KEY"
+       - name: DD_TAGS
+         value: env:dev cluster_name:my-EKS-cluster profile:my-fargate-service
+       - name: DD_EKS_FARGATE
+         value: "true"
+       - name: DD_KUBERNETES_KUBELET_NODENAME
+         valueFrom:
+           fieldRef:
+             apiVersion: v1
