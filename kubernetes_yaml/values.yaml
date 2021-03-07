@@ -648,8 +648,8 @@ agents:
 
   containers:
     agent:
-      annotations:
-        sidecar.istio.io/inject: "false"
+      # annotations:
+      #  sidecar.istio.io/inject: "false"
       # agents.containers.agent.env -- Additional environment variables for the agent container
       env: []
 
@@ -660,7 +660,7 @@ agents:
       # agents.containers.agent.resources -- Resource requests and limits for the agent container.
       resources:
         requests:
-          cpu: 0.2
+          cpu: 0.1
           memory: 250Mi
         limits:
           cpu: 0.5
@@ -922,7 +922,7 @@ clusterChecksRunner:
   resources:
     resources:
       requests:
-        cpu: 0.2
+        cpu: 0.1
         memory: 200Mi
       limits:
         cpu: 0.5
