@@ -12,7 +12,7 @@ const { createLogger, format, transports } = require('winston');
 
 const httpTransportOptions = {
   host: 'http-intake.logs.datadoghq.com',
-  path: '/v1/input/115297ba0859cb8390bbabae4657ee61?ddsource=nodejs&service=hello_node',
+  path: '/v1/input/{YOUR_API_KEY}?ddsource=nodejs&service=hello_node',
   ssl: true,
   json: true
 };
