@@ -1,0 +1,1 @@
+{"msg":"log message to send","dd":{"trace_id":"3789340422207333411","span_id":"749469929949061717","service":"hello_node","version":"1.0.0","env":"dev"}}
